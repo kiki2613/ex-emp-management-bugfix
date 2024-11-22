@@ -101,7 +101,7 @@ public class AdministratorController {
 		String password = administrator.getPassword();
 		String checkPassword = form.getCheckPassword();
 
-		if (password.equals(checkPassword)) {
+		if (!(password.equals(checkPassword))) {
 			String passwordCheckErrorMessage = "パスワードと確認用パスワードが一致しません";
 			model.addAttribute("passwordCheckErrorMessage", passwordCheckErrorMessage);
 			return "administrator/insert";
