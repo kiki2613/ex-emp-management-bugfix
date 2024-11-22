@@ -106,10 +106,10 @@ public class AdministratorController {
 			model.addAttribute("passwordCheckErrorMessage", passwordCheckErrorMessage);
 			return "administrator/insert";
 		}
-
 		administratorService.insert(administrator);
 
-		return "administrator/login";
+		return "redirect:/";
+
 	}
 
 	/////////////////////////////////////////////////////
