@@ -109,7 +109,9 @@ public class AdministratorController {
 			return "administrator/insert";
 		}
 
-		return "administrator/login";
+		administratorService.insert(administrator);
+		return "redirect:/";
+
 	}
 
 	/////////////////////////////////////////////////////
