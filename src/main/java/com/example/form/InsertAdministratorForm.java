@@ -29,6 +29,10 @@ public class InsertAdministratorForm {
 	@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]+$", message = "パスワードは英字と数字を両方含む必要があります")
 	private String password;
 
+	/** 確認用パスワード */
+	@NotBlank(message = "確認用のパスワードを入力してください")
+	private String checkPassword;
+
 	public String getName() {
 		return name;
 	}
@@ -53,10 +57,17 @@ public class InsertAdministratorForm {
 		this.password = password;
 	}
 
+	public String getCheckPassword() {
+		return checkPassword;
+	}
+
+	public void setCheckPassword(String checkPassword) {
+		this.checkPassword = checkPassword;
+	}
+
 	@Override
 	public String toString() {
 		return "InsertAdministratorForm [name=" + name + ", mailAddress=" + mailAddress + ", password=" + password
 				+ "]";
 	}
-
 }
