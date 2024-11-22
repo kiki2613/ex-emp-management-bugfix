@@ -3,6 +3,9 @@ package com.example.controller;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,18 +64,28 @@ public class AdministratorController {
 	 * @return 管理者登録画面
 	 */
 	@GetMapping("/toInsert")
-	public String toInsert() {
+	public String toInsert(Model model) {
 		return "administrator/insert";
 	}
 
 	/**
 	 * 管理者情報を登録します.
 	 * 
-	 * @param form 管理者情報用フォーム
+	 * @param form   管理者情報用フォーム
+	 * @param result エラーメッセージを格納するためのオブジェクト
+	 * @param model  リクエストスコープを使用するためのオブジェクト
 	 * @return ログイン画面へリダイレクト
 	 */
 	@PostMapping("/insert")
-	public String insert(InsertAdministratorForm form) {
+	public String insert(
+			@Validated InsertAdministratorForm form,
+			BindingResult result,
+			Model model) {
+
+		if (result.hasErrors()) {
+			return toInsert(model);
+		}
+
 		Administrator administrator = new Administrator();
 		// フォームからドメインにプロパティ値をコピー
 		BeanUtils.copyProperties(form, administrator);
