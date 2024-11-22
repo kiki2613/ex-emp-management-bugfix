@@ -93,13 +93,23 @@ public class AdministratorController {
 		Administrator administrator2 = administratorService.mailAddressDoubleCheck(administrator.getMailAddress());
 
 		if (administrator2 != null) {
-			String errorMessage = "このメールアドレスはすでに登録されています";
-			model.addAttribute("errorMessage", errorMessage);
+			String mailAddressErrorMessage = "このメールアドレスはすでに登録されています";
+			model.addAttribute("mailAddressErrorMessage", mailAddressErrorMessage);
 			return "administrator/insert";
 		}
 
+		String password = administrator.getPassword();
+		String checkPassword = form.getCheckPassword();
+
+		if (!(password.equals(checkPassword))) {
+			String passwordCheckErrorMessage = "パスワードと確認用パスワードが一致しません";
+			model.addAttribute("passwordCheckErrorMessage", passwordCheckErrorMessage);
+			return "administrator/insert";
+		}
 		administratorService.insert(administrator);
+
 		return "redirect:/";
+
 	}
 
 	/////////////////////////////////////////////////////

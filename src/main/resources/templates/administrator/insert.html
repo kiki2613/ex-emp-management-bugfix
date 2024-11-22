@@ -88,7 +88,7 @@
                         メールアドレスを入力してください
                       </label>
                       <label
-                        th:text="${errorMessage}"
+                        th:text="${mailAddressErrorMessage}"
                         class="error-messages"
                       >
                         メールアドレスはすでに登録されています
@@ -124,6 +124,36 @@
                         class="form-control"
                         placeholder="password"
                         th:field="*{password}"
+                        th:errorclass="error-input"
+                        value="xxxxxxxx"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <!-- 確認用パスワード -->
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label for="checkPassword"> 確認用パスワード: </label>
+                      <label
+                        th:errors="*{checkPassword}"
+                        class="error-messages"
+                      >
+                        確認用パスワードを入力してください
+                      </label>
+                      <label
+                        th:text="${passwordCheckErrorMessage}"
+                        class="error-messages"
+                      >
+                        パスワードと確認用パスワードが一致しません
+                      </label>
+                      <input
+                        type="password"
+                        name="checkPassword"
+                        id="checkPassword"
+                        class="form-control"
+                        placeholder="確認用password"
+                        th:field="*{checkPassword}"
                         th:errorclass="error-input"
                         value="xxxxxxxx"
                       />
