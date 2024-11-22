@@ -102,12 +102,12 @@ public class AdministratorController {
 		String checkPassword = form.getCheckPassword();
 
 		if (password.equals(checkPassword)) {
-			administratorService.insert(administrator);
-		} else {
 			String passwordCheckErrorMessage = "パスワードと確認用パスワードが一致しません";
 			model.addAttribute("passwordCheckErrorMessage", passwordCheckErrorMessage);
 			return "administrator/insert";
 		}
+
+		administratorService.insert(administrator);
 
 		return "administrator/login";
 	}
