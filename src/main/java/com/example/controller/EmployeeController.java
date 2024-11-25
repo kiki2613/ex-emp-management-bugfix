@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Employee;
+import com.example.form.SearchEmployeeForm;
 import com.example.form.UpdateEmployeeForm;
 import com.example.service.EmployeeService;
 
@@ -37,6 +39,11 @@ public class EmployeeController {
 	@ModelAttribute
 	public UpdateEmployeeForm setUpForm() {
 		return new UpdateEmployeeForm();
+	}
+
+	@ModelAttribute
+	public SearchEmployeeForm setUSearchEmployeeForm() {
+		return new SearchEmployeeForm();
 	}
 
 	/////////////////////////////////////////////////////
@@ -91,5 +98,25 @@ public class EmployeeController {
 		employee.setDependentsCount(form.getIntDependentsCount());
 		employeeService.update(employee);
 		return "redirect:/employee/showList";
+	}
+
+	/**
+	 * 入力された従業員名で従業員情報を検索する.
+	 * 
+	 * @param form  画面入力情報
+	 * @param model リクエストスコープを使用するためのオブジェクト
+	 * @return 検索された従業員情報が表示された含む従業員リスト
+	 */
+	public String search(SearchEmployeeForm form, Model model) {
+		List<Employee> employeeList = new ArrayList<>();
+
+		if (form.getEmployeeName().equals("")) {
+			employeeList = employeeService.showList();
+		} else {
+			employeeList = employeeService.search(form.getEmployeeName());
+		}
+		model.addAttribute("employeeSearchList", employeeList);
+
+		return "employee/showList";
 	}
 }
