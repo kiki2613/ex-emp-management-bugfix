@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.domain.Employee;
 import com.example.form.SearchEmployeeForm;
@@ -107,7 +108,8 @@ public class EmployeeController {
 	 * @param model リクエストスコープを使用するためのオブジェクト
 	 * @return 検索された従業員情報が表示された含む従業員リスト
 	 */
-	public String search(SearchEmployeeForm form, Model model) {
+	@PostMapping("/search")
+	public String search(SearchEmployeeForm form, RedirectAttributes redirectAttributes) {
 		List<Employee> employeeList = new ArrayList<>();
 
 		if (form.getEmployeeName().equals("")) {
@@ -115,8 +117,8 @@ public class EmployeeController {
 		} else {
 			employeeList = employeeService.search(form.getEmployeeName());
 		}
-		model.addAttribute("employeeSearchList", employeeList);
+		redirectAttributes.addFlashAttribute("employeeSearchList", employeeList);
 
-		return "employee/showList";
+		return "redirect:/employee/showList";
 	}
 }
