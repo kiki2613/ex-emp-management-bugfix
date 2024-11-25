@@ -84,6 +84,12 @@ public class EmployeeRepository {
 		template.update(updateSql, param);
 	}
 
+	/**
+	 * 入力された従業員名から従業員情報を検索します.
+	 * 
+	 * @param employeeName 従業員名
+	 * @return 検索された従業員情報
+	 */
 	public List<Employee> findByEmployeeName(String employeeName) {
 		String sql = "SELECT id,name,image,gender,hire_date,mail_address,zip_code,telephone,salary,characteristics,dependents_count FROM employees WHERE name like :employeeName";
 
