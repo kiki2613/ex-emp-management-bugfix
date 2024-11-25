@@ -6375,5 +6375,12 @@ button.close {
   background-color: #269abc;
 }
 
+/* 検索結果が1件もなかった時に表示する文章 */
+.non-search {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 30px;
+}
+
 
 /*# sourceMappingURL=bootstrap.css.map */

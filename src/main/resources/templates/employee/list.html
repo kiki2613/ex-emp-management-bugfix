@@ -90,10 +90,12 @@
       </ol>
 
       <div class="search">
-        <form action="#">
+        <form th:action="@{/employee/search}"
+              th:object="${searchEmployeeForm}" method="post">
           <input type="text"
                 placeholder="従業員名を入力してください"
                 th:id="employee-name"
+                th:field="*{employeeName}"
                 class="search-form">
 
           <button type="submit" class="search-btn">検索</button>
@@ -110,31 +112,69 @@
           <!-- ここにモックのtable要素を貼り付けます -->
 
           <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>従業員名</th>
-                <th>入社日</th>
-                <th>扶養人数</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr th:each="employee : ${employeeList}">
-                <td>
-                  <a
-                    href="detail.html"
-                    th:href="@{'/employee/showDetail?id=' + ${employee.id}}"
-                  >
-                    <span th:text="${employee.name}">山田太郎</span>
-                  </a>
-                </td>
-                <td>
-                  <span th:text="${#dates.format(employee.hireDate, 'yyyy年MM月dd日')}">2016/12/1</span>
-                </td>
-                <td>
-                  <span th:text="${employee.dependentsCount} + '人'">3人</span>
-                </td>
-              </tr>
-            </tbody>
+            <div th:if="${employeeSearchList}">
+
+              <div th:if="${employeeSearchList.size() == 0}">
+                <p class="non-search">検索結果が1件もありませんでした。</p>
+              </div>
+
+              <div th:unless="${employeeSearchList.size() == 0}">
+                <thead>
+                  <tr>
+                    <th>従業員名</th>
+                    <th>入社日</th>
+                    <th>扶養人数</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="employee : ${employeeSearchList}">
+                    <td>
+                      <a
+                        href="detail.html"
+                        th:href="@{'/employee/showDetail?id=' + ${employee.id}}"
+                      >
+                        <span th:text="${employee.name}">山田太郎</span>
+                      </a>
+                    </td>
+                    <td>
+                      <span th:text="${#dates.format(employee.hireDate, 'yyyy年MM月dd日')}">2016/12/1</span>
+                    </td>
+                    <td>
+                      <span th:text="${employee.dependentsCount} + '人'">3人</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </div>
+              
+            </div>
+            <div th:unless="${employeeSearchList}">
+              <thead>
+                <tr>
+                  <th>従業員名</th>
+                  <th>入社日</th>
+                  <th>扶養人数</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="employee : ${employeeList}">
+                  <td>
+                    <a
+                      href="detail.html"
+                      th:href="@{'/employee/showDetail?id=' + ${employee.id}}"
+                    >
+                      <span th:text="${employee.name}">山田太郎</span>
+                    </a>
+                  </td>
+                  <td>
+                    <span th:text="${#dates.format(employee.hireDate, 'yyyy年MM月dd日')}">2016/12/1</span>
+                  </td>
+                  <td>
+                    <span th:text="${employee.dependentsCount} + '人'">3人</span>
+                  </td>
+                </tr>
+              </tbody>
+            </div>
+            
           </table>
 
           <!-- ここから下を編集する必要はありません -->
