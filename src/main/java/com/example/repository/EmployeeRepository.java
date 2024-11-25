@@ -91,15 +91,13 @@ public class EmployeeRepository {
 	 * @return 検索された従業員情報
 	 */
 	public List<Employee> findByEmployeeName(String employeeName) {
-		String sql = "SELECT id,name,image,gender,hire_date,mail_address,zip_code,telephone,salary,characteristics,dependents_count FROM employees WHERE name like :employeeName";
+		String sql = "SELECT id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count FROM employees WHERE name like :employeeName ORDER BY hire_date";
 
 		SqlParameterSource param = new MapSqlParameterSource()
-				.addValue(employeeName, "%" + employeeName + "%");
+				.addValue("employeeName", "%" + employeeName + "%");
 
 		List<Employee> employeeList = template.query(sql, param, EMPLOYEE_ROW_MAPPER);
-		if (employeeList.size() == 0) {
-			return null;
-		}
+
 		return employeeList;
 	}
 }
