@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.domain.Employee;
-import com.example.form.SearchEmployeeForm;
 import com.example.form.UpdateEmployeeForm;
 import com.example.service.EmployeeService;
 
@@ -40,11 +38,6 @@ public class EmployeeController {
 	@ModelAttribute
 	public UpdateEmployeeForm setUpForm() {
 		return new UpdateEmployeeForm();
-	}
-
-	@ModelAttribute
-	public SearchEmployeeForm setUSearchEmployeeForm() {
-		return new SearchEmployeeForm();
 	}
 
 	/////////////////////////////////////////////////////
@@ -109,16 +102,16 @@ public class EmployeeController {
 	 * @return 検索された従業員情報が表示された含む従業員リスト
 	 */
 	@PostMapping("/search")
-	public String search(SearchEmployeeForm form, RedirectAttributes redirectAttributes) {
+	public String search(String employeeName, Model model) {
 		List<Employee> employeeList = new ArrayList<>();
 
-		if (form.getEmployeeName().equals("")) {
+		if (employeeName.isEmpty()) {
 			employeeList = employeeService.showList();
 		} else {
-			employeeList = employeeService.search(form.getEmployeeName());
+			employeeList = employeeService.search(employeeName);
 		}
-		redirectAttributes.addFlashAttribute("employeeSearchList", employeeList);
+		model.addAttribute("employeeSearchList", employeeList);
 
-		return "redirect:/employee/showList";
+		return "employee/list";
 	}
 }
