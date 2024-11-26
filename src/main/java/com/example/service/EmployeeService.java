@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,13 @@ public class EmployeeService {
 	 * @return 検索された従業員情報
 	 */
 	public List<Employee> search(String employeeName) {
-		return employeeRepository.findByEmployeeName(employeeName);
+		List<Employee> employeeList = new ArrayList<>();
+
+		if (employeeName == null || employeeName.isEmpty()) {
+			employeeList = employeeRepository.findAll();
+		} else {
+			employeeList = employeeRepository.findByEmployeeName(employeeName);
+		}
+		return employeeList;
 	}
 }
