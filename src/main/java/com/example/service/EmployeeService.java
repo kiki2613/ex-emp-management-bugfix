@@ -63,11 +63,15 @@ public class EmployeeService {
 	public List<Employee> search(String employeeName) {
 		List<Employee> employeeList = new ArrayList<>();
 
-		if (employeeName == null || employeeName.isEmpty()) {
+		if (employeeName.isBlank()) {
 			employeeList = employeeRepository.findAll();
 		} else {
 			employeeList = employeeRepository.findByEmployeeName(employeeName);
 		}
 		return employeeList;
+	}
+
+	public List<Employee> searchNull(String employeeName) {
+		return employeeRepository.findAll();
 	}
 }
