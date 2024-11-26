@@ -106,7 +106,7 @@ public class EmployeeController {
 		List<Employee> employeeList = new ArrayList<>();
 
 		if (employeeName == null) {
-			employeeList = employeeService.searchNull(employeeName);
+			employeeList = employeeService.showList();
 		} else {
 			employeeList = employeeService.search(employeeName);
 		}
