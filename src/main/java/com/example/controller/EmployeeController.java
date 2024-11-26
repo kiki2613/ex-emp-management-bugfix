@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,13 +102,15 @@ public class EmployeeController {
 	 */
 	@PostMapping("/search")
 	public String search(String employeeName, Model model) {
-		List<Employee> employeeList = new ArrayList<>();
+		List<Employee> employeeList = employeeService.search(employeeName);
 
-		if (employeeName.isEmpty()) {
+		if (employeeList.size() == 0) {
 			employeeList = employeeService.showList();
-		} else {
-			employeeList = employeeService.search(employeeName);
+
+			String searchErrorMessage = "検索結果が1件もありませんでした。";
+			model.addAttribute("searchErrorMessage", searchErrorMessage);
 		}
+
 		model.addAttribute("employeeSearchList", employeeList);
 
 		return "employee/list";
