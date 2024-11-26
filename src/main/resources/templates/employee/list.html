@@ -90,12 +90,11 @@
       </ol>
 
       <div class="search">
-        <form th:action="@{/employee/search}"
-              th:object="${searchEmployeeForm}" method="post">
+        <form th:action="@{/employee/search}" method="post">
           <input type="text"
+                name="employeeName"
                 placeholder="従業員名を入力してください"
                 th:id="employee-name"
-                th:field="*{employeeName}"
                 class="search-form">
 
           <button type="submit" class="search-btn">検索</button>
