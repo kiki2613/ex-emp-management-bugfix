@@ -71,6 +71,12 @@ public class EmployeeService {
 		return employeeList;
 	}
 
+	/**
+	 * 入力された従業員名がnullだったときに従業員情報を全件取得する.
+	 * 
+	 * @param employeeName 従業員名（null）
+	 * @return 全従業員情報
+	 */
 	public List<Employee> searchNull(String employeeName) {
 		return employeeRepository.findAll();
 	}
