@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,5 +92,34 @@ public class EmployeeController {
 		employee.setDependentsCount(form.getIntDependentsCount());
 		employeeService.update(employee);
 		return "redirect:/employee/showList";
+	}
+
+	/**
+	 * 入力された従業員名で従業員情報を検索する.
+	 * 
+	 * @param form  画面入力情報
+	 * @param model リクエストスコープを使用するためのオブジェクト
+	 * @return 検索された従業員情報が表示された含む従業員リスト
+	 */
+	@PostMapping("/search")
+	public String search(String employeeName, Model model) {
+		List<Employee> employeeList = new ArrayList<>();
+
+		if (employeeName == null) {
+			employeeList = employeeService.showList();
+		} else {
+			employeeList = employeeService.search(employeeName);
+		}
+
+		if (employeeList.size() == 0) {
+			employeeList = employeeService.showList();
+
+			String searchErrorMessage = "検索結果が1件もありませんでした。";
+			model.addAttribute("searchErrorMessage", searchErrorMessage);
+		}
+
+		model.addAttribute("employeeSearchList", employeeList);
+
+		return "employee/list";
 	}
 }

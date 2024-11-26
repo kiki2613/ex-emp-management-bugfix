@@ -6342,4 +6342,45 @@ button.close {
   margin-top: 25px;
 }
 
+/* 従業員リストの検索フォーム */
+.search {
+  width: 100%;
+  padding: 10px;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  border-radius: 3px;
+}
+
+.search-form {
+  width: 350px;
+  height: 30px;
+  border: 1px solid #286090;
+  border-radius: 5px;
+}
+
+.search-btn {
+  background-color: #286090;
+  color: #ffffff;
+  width: 50px;
+  height: 30px;
+  border: #286090;
+  border-radius: 5px;
+}
+
+.search-btn:hover {
+  background-color: #269abc;
+}
+
+/* 検索結果が1件もなかった時に表示する文章 */
+.non-search {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 30px;
+}
+
+
 /*# sourceMappingURL=bootstrap.css.map */
